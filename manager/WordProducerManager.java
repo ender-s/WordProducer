@@ -98,6 +98,10 @@ public final class WordProducerManager
          */
         public Builder putSymbols(int length, List<String> symbols)
         {
+            if (length <= 0)
+            {
+                throw new RuntimeException("Length must be positive!");
+            }
             checkSymbols(symbols);
             symbolMap.put(length, symbols);
             return this;
@@ -114,10 +118,14 @@ public final class WordProducerManager
          */
         public Builder putSymbolsToRange(int lengthStart, int lengthEnd, List<String> symbols)
         {
+            if (lengthStart > lengthEnd)
+            {
+                throw new RuntimeException("lengthStart cannot be greater than lengthEnd!");
+            }
             checkSymbols(symbols);
             for (int i = lengthStart; i <= lengthEnd; i++)
             {
-                symbolMap.put(i, symbols);
+                putSymbols(i, symbols);
             }
             return this;
         }
