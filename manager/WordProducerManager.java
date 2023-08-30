@@ -158,4 +158,31 @@ public final class WordProducerManager
             return new WordProducerManager(this);
         }
     }
+
+    /**
+     * Accessor method for numberOfQueues.
+     * @return the number of queues
+     */
+    public int getNumberOfQueues()
+    {
+        return numberOfQueues;
+    }
+
+    /**
+     * Accessor method for threadsPerQueue.
+     * @return the number of producer threads per queue
+     */
+    public int getThreadsPerQueue()
+    {
+        return threadsPerQueue;
+    }
+
+    /**
+     * Accessor method for symbolMap.
+     * @return the symbol map consisting of length-symbol list associations
+     */
+    public HashMap<Integer, List<String>> getSymbolMap()
+    {
+        return symbolMap;
+    }
 }
