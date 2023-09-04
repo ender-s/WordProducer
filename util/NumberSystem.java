@@ -1,5 +1,6 @@
 package util;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -14,15 +15,16 @@ public class NumberSystem {
      *              0s are added to the beginning of the resulting list.
      * @return an array consisting of integers which range from 0 to n-1.
      */
-    public static Integer[] decimalToBaseN(int decimal, int n, int padTo)
+    public static Integer[] decimalToBaseN(BigInteger decimal, int n, int padTo)
     {
+        BigInteger bigN = BigInteger.valueOf(n);
         Integer[] baseNResult = new Integer[padTo];
         Arrays.fill(baseNResult, 0);
         int index = 0;
-        while (decimal > 0)
+        while (decimal.compareTo(BigInteger.ZERO) > 0)
         {
-            int remainder = decimal % n;
-            decimal = decimal / n;
+            int remainder = decimal.mod(bigN).intValue();
+            decimal = decimal.divide(bigN);
             baseNResult[index] = remainder;
             index++;
         }

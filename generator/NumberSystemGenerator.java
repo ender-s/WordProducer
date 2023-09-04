@@ -2,6 +2,7 @@ package generator;
 
 import util.NumberSystem;
 
+import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,7 +19,9 @@ public class NumberSystemGenerator extends DistributableGenerator
      *                   are produced by the generator.
      * @param digitCount the number of symbols to be used in produced words.
      */
-    public NumberSystemGenerator(List<String> generationPool, int lowerBound, int upperBound, int digitCount)
+        public NumberSystemGenerator(List<String> generationPool,
+                                     BigInteger lowerBound, BigInteger upperBound,
+                                     int digitCount)
     {
         super(generationPool, lowerBound, upperBound, digitCount);
         this.base = generationPool.size();
@@ -30,13 +33,13 @@ public class NumberSystemGenerator extends DistributableGenerator
         public String next()
         {
             String result = generateWord(currentIndex);
-            currentIndex++;
+            currentIndex = currentIndex.add(BigInteger.valueOf(1));
             return result;
         }
     }
 
     @Override
-    protected String generateWord(int index)
+    protected String generateWord(BigInteger index)
     {
         StringBuilder stringBuilder = new StringBuilder();
         for(int symbolIndex: NumberSystem.decimalToBaseN(index, base, digitCount))

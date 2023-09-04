@@ -1,13 +1,14 @@
 package generator;
 
+import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.List;
 
 public abstract class DistributableGenerator extends Generator implements Iterable<String>
 {
 
-    protected final int lowerBound;
-    protected final int upperBound;
+    protected final BigInteger lowerBound;
+    protected final BigInteger upperBound;
     protected final int digitCount;
 
     /**
@@ -19,7 +20,7 @@ public abstract class DistributableGenerator extends Generator implements Iterab
      *                   are produced by the generator.
      * @param digitCount the number of symbols to be used in produced words.
      */
-    public DistributableGenerator(List<String> generationPool, int lowerBound, int upperBound, int digitCount)
+    public DistributableGenerator(List<String> generationPool, BigInteger lowerBound, BigInteger upperBound, int digitCount)
     {
         super(generationPool);
         this.lowerBound = lowerBound;
@@ -29,7 +30,7 @@ public abstract class DistributableGenerator extends Generator implements Iterab
 
     protected abstract class DistributableGeneratorIterator implements Iterator<String>
     {
-        protected int currentIndex;
+        protected BigInteger currentIndex;
 
         public DistributableGeneratorIterator()
         {
@@ -39,7 +40,7 @@ public abstract class DistributableGenerator extends Generator implements Iterab
         @Override
         public boolean hasNext()
         {
-            return currentIndex <= upperBound;
+            return currentIndex.compareTo(upperBound) <= 0;
         }
     }
 
@@ -48,6 +49,6 @@ public abstract class DistributableGenerator extends Generator implements Iterab
      * @param index the index that refers to the target word.
      * @return the word referred to by the given index.
      */
-    protected abstract String generateWord(int index);
+    protected abstract String generateWord(BigInteger index);
 
 }

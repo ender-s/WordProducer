@@ -1,5 +1,6 @@
 package util;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -14,14 +15,14 @@ public class Counter
      * @return the count of all possible words that may be generated
      *         using the given symbolMap
      */
-    public static long countWords(HashMap<Integer, List<String>> symbolMap)
+    public static BigInteger countWords(HashMap<Integer, List<String>> symbolMap)
     {
-        long result = 0L;
+        BigInteger result = BigInteger.ZERO;
         for (Entry<Integer, List<String>> entry: symbolMap.entrySet())
         {
             int length = entry.getKey();
-            int symbolCount = entry.getValue().size();
-            result += Math.pow(symbolCount, length);
+            BigInteger symbolCount = BigInteger.valueOf(entry.getValue().size());
+            result = result.add(symbolCount.pow(length));
         }
         return result;
     }
@@ -35,8 +36,8 @@ public class Counter
      * @param length the length of the words (must exist in symbolMap)
      * @return the count of all possible words
      */
-    public static long countWords(HashMap<Integer, List<String>> symbolMap, int length)
+    public static BigInteger countWords(HashMap<Integer, List<String>> symbolMap, int length)
     {
-        return (long)Math.pow(symbolMap.get(length).size(), length);
+        return BigInteger.valueOf(symbolMap.get(length).size()).pow(length);
     }
 }

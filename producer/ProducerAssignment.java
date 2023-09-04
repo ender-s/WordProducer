@@ -1,13 +1,14 @@
 package producer;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class ProducerAssignment
 {
     private final List<String> symbols;
     private final int length;
-    private final int startIndex;
-    private final int endIndex;
+    private final BigInteger startIndex;
+    private final BigInteger endIndex;
 
     /**
      * Constructor of ProducerAssignment class.
@@ -23,7 +24,7 @@ public class ProducerAssignment
      *                   to parts.
      * @param endIndex the upper bound index (inclusive)
      */
-    public ProducerAssignment(List<String> symbols, int length, int startIndex, int endIndex)
+    public ProducerAssignment(List<String> symbols, int length, BigInteger startIndex, BigInteger endIndex)
     {
         this.symbols = symbols;
         this.length = length;
@@ -53,7 +54,7 @@ public class ProducerAssignment
      * Accessor method for startIndex.
      * @return the lower bound (inclusive) of the interval of the words to be produced
      */
-    public int getStartIndex()
+    public BigInteger getStartIndex()
     {
         return startIndex;
     }
@@ -62,7 +63,7 @@ public class ProducerAssignment
      * Accessor method for endIndex.
      * @return the upper bound (exclusive) of the interval of the words to be produced
      */
-    public int getEndIndex()
+    public BigInteger getEndIndex()
     {
         return endIndex;
     }
