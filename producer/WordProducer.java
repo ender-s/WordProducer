@@ -56,4 +56,14 @@ public class WordProducer implements Runnable
             }
         }
     }
+
+    /**
+     * Accessor method for assignments.
+     * @return the list of ProducerAssignments assigned to
+     *         this WordProducer
+     */
+    public List<ProducerAssignment> getAssignments()
+    {
+        return assignments;
+    }
 }
