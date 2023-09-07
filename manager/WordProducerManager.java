@@ -1,13 +1,22 @@
 package manager;
 
+import distributor.WordDistributor;
+import producer.WordProducer;
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Executors;
 
 public final class WordProducerManager
 {
     private int numberOfQueues;
     private int threadsPerQueue;
     private HashMap<Integer, List<String>> symbolMap;
+    private WordDistributor wordDistributor;
+    private boolean completed;
 
     /**
      * Constructor of WordProducerManager class
@@ -18,6 +27,9 @@ public final class WordProducerManager
         this.numberOfQueues = builder.numberOfQueues;
         this.threadsPerQueue = builder.threadsPerQueue;
         this.symbolMap = builder.symbolMap;
+
+        wordDistributor = new WordDistributor(this);
+        wordDistributor.distribute();
     }
 
     public static final class Builder
@@ -192,5 +204,65 @@ public final class WordProducerManager
     public HashMap<Integer, List<String>> getSymbolMap()
     {
         return symbolMap;
+    }
+
+    /**
+     * Starts the producers and sets boolean completed variable to
+     * true when all threads finish their tasks.
+     */
+    private void startProducers()
+    {
+
+        List<WordProducer> wordProducers = wordDistributor.getWordProducers();
+        ExecutorService executorService = Executors.newFixedThreadPool(wordProducers.size());
+
+        for (WordProducer wordProducer: wordProducers)
+        {
+            executorService.execute(wordProducer);
+        }
+        executorService.shutdown();
+        boolean terminated = false;
+        do
+        {
+            try
+            {
+                terminated = executorService.awaitTermination(100, TimeUnit.MILLISECONDS);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+
+        } while(!terminated);
+
+        completed = true;
+    }
+
+    /**
+     * Triggers the start of word producers.
+     * @return a List consisting of queues where the produced words
+     *         are to be put.
+     */
+    public List<BlockingQueue<String>> produce()
+    {
+        List<BlockingQueue<String>> queues = wordDistributor.getQueues();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run()
+            {
+                startProducers();
+            }
+        });
+        thread.start();
+        return queues;
+    }
+
+    /**
+     * Accessor method for completed.
+     * @return whether the overall process has been completed
+     */
+    public boolean isCompleted()
+    {
+        return completed;
     }
 }
