@@ -1,10 +1,10 @@
-package distributor;
+package enders.wordproducer.distributor;
 
-import manager.WordProducerManager;
-import producer.ProducerAssignment;
-import producer.WordProducer;
-import util.Counter;
-import util.IntervalManager;
+import enders.wordproducer.manager.WordProducerManager;
+import enders.wordproducer.producer.ProducerAssignment;
+import enders.wordproducer.producer.WordProducer;
+import enders.wordproducer.util.IntervalManager;
+import enders.wordproducer.util.Counter;
 
 import java.math.BigInteger;
 import java.util.*;

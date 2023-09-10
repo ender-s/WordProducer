@@ -1,6 +1,6 @@
-package generator;
+package enders.wordproducer.generator;
 
-import util.NumberSystem;
+import enders.wordproducer.util.NumberSystem;
 
 import java.math.BigInteger;
 import java.util.Iterator;

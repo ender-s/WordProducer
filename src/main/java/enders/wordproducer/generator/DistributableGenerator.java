@@ -1,4 +1,4 @@
-package generator;
+package enders.wordproducer.generator;
 
 import java.math.BigInteger;
 import java.util.Iterator;

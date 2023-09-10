@@ -1,7 +1,7 @@
-package manager;
+package enders.wordproducer.manager;
 
-import distributor.WordDistributor;
-import producer.WordProducer;
+import enders.wordproducer.producer.WordProducer;
+import enders.wordproducer.distributor.WordDistributor;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package util;
+package enders.wordproducer.util;
 
 import java.math.BigInteger;
 import java.util.Arrays;

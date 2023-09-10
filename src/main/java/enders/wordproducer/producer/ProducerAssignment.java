@@ -1,4 +1,4 @@
-package producer;
+package enders.wordproducer.producer;
 
 import java.math.BigInteger;
 import java.util.List;

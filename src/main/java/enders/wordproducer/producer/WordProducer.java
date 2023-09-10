@@ -1,7 +1,7 @@
-package producer;
+package enders.wordproducer.producer;
 
-import generator.DistributableGenerator;
-import generator.NumberSystemGenerator;
+import enders.wordproducer.generator.DistributableGenerator;
+import enders.wordproducer.generator.NumberSystemGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
