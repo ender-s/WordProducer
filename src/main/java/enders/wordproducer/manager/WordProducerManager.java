@@ -9,7 +9,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.Executors;
-
 public final class WordProducerManager
 {
     private int numberOfQueues;
@@ -17,6 +16,7 @@ public final class WordProducerManager
     private HashMap<Integer, List<String>> symbolMap;
     private WordDistributor wordDistributor;
     private boolean completed;
+    private List<BlockingQueue<String>> queues;
 
     /**
      * Constructor of WordProducerManager class
@@ -235,6 +235,30 @@ public final class WordProducerManager
 
         } while(!terminated);
 
+        boolean wait = true;
+        while (wait)
+        {
+            wait = false;
+            for (BlockingQueue<String> queue: queues)
+            {
+                if (!queue.isEmpty())
+                {
+                    wait = true;
+                    break;
+                }
+            }
+
+            try
+            {
+                Thread.sleep(100);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+
         completed = true;
     }
 
@@ -245,7 +269,7 @@ public final class WordProducerManager
      */
     public List<BlockingQueue<String>> produce()
     {
-        List<BlockingQueue<String>> queues = wordDistributor.getQueues();
+        queues = wordDistributor.getQueues();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run()
